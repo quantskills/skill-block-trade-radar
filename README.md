@@ -158,6 +158,8 @@ block-trade-radar/
 
 This project is licensed under the GNU General Public License v3.0. See [LICENSE](LICENSE).
 
+维护者：`abgyjaguo`
+
 ## 🐼 PandaAI / QUANTSKILLS 社群
 
 <div align="center">
