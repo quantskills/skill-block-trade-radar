@@ -46,6 +46,30 @@ quantSkills:
   - skill-pandadata-api
 ---
 
+```json qsh-form
+{
+  "version": 1,
+  "task": {
+    "placeholder": "补充扫描窗口、行业范围、折溢价阈值或重点席位；留空则按默认近期开窗扫描"
+  },
+  "fields": [
+    {
+      "key": "symbol",
+      "label": "股票代码（可选）",
+      "type": "text",
+      "placeholder": "如：600519.SH；留空扫描全市场"
+    },
+    {
+      "key": "date",
+      "label": "截至日期",
+      "type": "date",
+      "help": "留空由前端使用今天，并自动按交易日处理"
+    }
+  ],
+  "prompt_template": "{{#task}}任务与材料：\n{{task}}\n\n{{/task}}{{#attachments}}用户上传的材料（已放入工作区）：\n{{attachments}}\n\n{{/attachments}}请运行 A 股大宗交易雷达{{#symbol}}，聚焦 {{symbol}}{{/symbol}}{{#date}}，截至 {{date}}{{/date}}，计算相对同日收盘价的折溢价率，识别机构专用买卖方向、重复折价接盘与买卖营业部相同的疑似对倒，并按成交额和折溢价排名，输出中文报告。"
+}
+```
+
 # Block Trade Radar
 
 Use this skill to **scan and read A-share block-trade (大宗交易) activity**: for the whole market over a window or a single name, join every block trade to the **same-day close** to compute a **discount/premium rate (折溢价率)**, read whether the buyer or seller is **机构专用 (institutional seat)**, flag **repeated discounted takeovers** and **same-branch (buyer==seller) prints**, and rank names by block-trade amount and by premium/discount. Prefer Pandadata as the data source, keep every figure traceable to `get_block_trade` (plus the `get_stock_daily` close used for the discount math) and a trade date, and never invent prices, amounts, discounts, or directions.
